@@ -20,12 +20,13 @@ const ProjectDetails = () => {
     variables: {id: projectId}
   })
   const project = data?.project
+  const [projectName, setProjectName] = useState(project?.name)
+  const [desc, setDesc] = useState(project?.description)
+  const [status, setStatus] = useState(project?.status)
+  
+
+
   console.log(project)
-  const [projectName, setProjectName] = useState(project.name)
-  const [desc, setDesc] = useState(project.description)
-  const [status, setStatus] = useState(project.status)
-
-
   const [deleteProject] = useMutation(DELETE_PROJECT, {
     variables: {id: projectId},
     update(cache, {data: { deleteProject }}){
