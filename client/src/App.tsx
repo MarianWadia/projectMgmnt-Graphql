@@ -11,12 +11,12 @@ const cache = new InMemoryCache({
     Query: {
       fields:{
         allClients: {
-          merge(existing, incoming){
+          merge(incoming){
             return incoming
           }
         },
         allProjects: {
-          merge(existing, incoming){
+          merge(incoming){
             return incoming
           }
         },
