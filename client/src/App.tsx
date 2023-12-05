@@ -1,7 +1,9 @@
-import AddClientButton from "./components/AddClientButton"
-import Clients from "./components/Clients"
-import Header from "./components/Header"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client" 
+import Home from "./pages/Home"
+import ProjectDetails from "./pages/ProjectDetails"
+import NotFound from "./pages/NotFound"
+import Header from "./components/Header"
 
 
 const cache = new InMemoryCache({
@@ -31,9 +33,15 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client} >
-      <Header />
-      <AddClientButton />
-      <Clients />
+    <Header />
+     <Router>
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/home" Component={Home} />
+        <Route path="/projects/:projectId" Component={ProjectDetails} />
+        <Route path="*" Component={NotFound} />
+      </Routes>
+     </Router>
     </ApolloProvider>
   )
 }

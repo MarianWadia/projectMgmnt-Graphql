@@ -1,5 +1,8 @@
 
 const Header = () => {
+  const handleClick = () =>{
+    window.location.href = '/'
+  }
   return (
     <div className="bg-gray-100 p-1">
        <div className="flex flex-row gap-2 mx-8 md:mx-24 items-center">
@@ -8,7 +11,7 @@ const Header = () => {
                         alt="graphql-logo"
                     />
             </div>
-                <h1 className="text-pink-500 text-2xl cursor-pointer hover:text-black">ProjectMgmt</h1>
+                <button onClick={handleClick} className="text-pink-500 text-2xl cursor-pointer hover:text-black">ProjectMgmt</button>
        </div>
     </div>
   )
