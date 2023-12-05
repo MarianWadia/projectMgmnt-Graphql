@@ -1,5 +1,5 @@
 import { useState } from "react"
-import AddClientModal from "./AddClientModal"
+import AddModal from "./AddModal"
 import { FaUser } from "react-icons/fa"
 import { FaList } from "react-icons/fa";
 
@@ -22,7 +22,7 @@ const AddClientButton : React.FC<AddClientButtonProps> = ({ forClient }) => {
   return (
     <div>
         <div className="flex items-center">
-            <button onClick={openModal} className={`text-lg text-white p-2 my-6 w-60 rounded-md flex items-center gap-4 justify-center ${forClient?`bg-violet-700 `:`bg-pink-700`}`}>
+            <button onClick={openModal} className={`text-lg text-white p-2 my-6 md:w-50 rounded-md flex items-center gap-4 justify-center ${forClient?`bg-violet-700 `:`bg-pink-700`}`}>
                 {forClient?(
                     <>
                         <FaUser />
@@ -36,7 +36,7 @@ const AddClientButton : React.FC<AddClientButtonProps> = ({ forClient }) => {
                 )}
             </button>
         </div>
-        <AddClientModal onClose={closeModal} isOpen={isModalOpen} forClient={forClient} />
+        <AddModal onClose={closeModal} isOpen={isModalOpen} forClient={forClient} />
     </div>  
   )
 }

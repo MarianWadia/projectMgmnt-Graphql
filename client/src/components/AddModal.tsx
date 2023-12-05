@@ -6,6 +6,7 @@ import { GET_CLIENTS } from "../queries/clientQueries";
 import { Client } from "./Clients";
 import { ADD_PROJECT } from "../mutations/projectMutations";
 import { GET_PROJECTS } from "../queries/ProjectQueries";
+import { Project } from "./Projects";
 
 
 interface ComponentProps {
@@ -14,7 +15,16 @@ interface ComponentProps {
     forClient: boolean
 }
 
-const AddClientModal : React.FC<ComponentProps> = ({isOpen, onClose, forClient}) => {
+
+interface ClientData {
+    allClients: Client[];
+}
+
+export interface ProjectData {
+    allProjects: Project[];
+}
+
+const AddModal : React.FC<ComponentProps> = ({isOpen, onClose, forClient}) => {
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
@@ -28,7 +38,7 @@ const AddClientModal : React.FC<ComponentProps> = ({isOpen, onClose, forClient})
     const [addClient] = useMutation(ADD_CLIENT, {
         variables: {name, email, phone},
         update(cache, {data: { addClient } }){
-            const { allClients } = cache.readQuery({query: GET_CLIENTS})
+            const allClients = cache.readQuery<ClientData>({ query: GET_CLIENTS })?.allClients || [];
             cache.writeQuery({
                 query: GET_CLIENTS, 
                 data: {allClients: [...allClients, addClient]}
@@ -39,7 +49,7 @@ const AddClientModal : React.FC<ComponentProps> = ({isOpen, onClose, forClient})
     const [addProject] = useMutation(ADD_PROJECT, {
         variables: {name: projectName, description: desc, status, clientId},
         update(cache, {data: { addProject } }){
-            const { allProjects } = cache.readQuery({query: GET_PROJECTS})
+            const allProjects  = cache.readQuery<ProjectData>({query: GET_PROJECTS})?.allProjects || []
             cache.writeQuery({
                 query: GET_PROJECTS, 
                 data: {allProjects: [...allProjects, addProject]}
@@ -65,7 +75,6 @@ const AddClientModal : React.FC<ComponentProps> = ({isOpen, onClose, forClient})
 
     const handleProjectSave = (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
-        console.log(desc, projectName, status)
         if(projectName ==='' || desc === '' || status === '' || clientId === ''){
             return alert('Please fill in all the required fields ⚠')
         }
@@ -178,4 +187,4 @@ const AddClientModal : React.FC<ComponentProps> = ({isOpen, onClose, forClient})
   )
 }
 
-export default AddClientModal
+export default AddModal

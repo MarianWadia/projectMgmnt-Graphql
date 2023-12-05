@@ -5,6 +5,7 @@ import { DELETE_CLIENT } from '../mutations/clientMutations'
 import { GET_CLIENTS } from "../queries/clientQueries"
 import { Project } from "./Projects"
 import { Link } from "react-router-dom"
+import { GET_PROJECTS } from "../queries/ProjectQueries"
 
 interface ComponentProps {
     client?: Client;
@@ -15,13 +16,7 @@ interface ComponentProps {
 const Card: React.FC<ComponentProps> = ({client, project}) => {
     const [deleteClient] = useMutation(DELETE_CLIENT, {
         variables: {id: client?.id},
-        update(cache, {data: {deleteClient} }){
-            const { allClients } = cache.readQuery<Client[]>({query: GET_CLIENTS})
-            cache.writeQuery({
-                query: GET_CLIENTS,
-                data: { allClients: allClients.filter((client: Client)=>client.id !== deleteClient.id)}
-            })
-        }
+        refetchQueries: [{query: GET_CLIENTS}, {query: GET_PROJECTS}]
     })
 
     const handleDeleteClient = () =>{

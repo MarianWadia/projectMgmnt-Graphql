@@ -159,18 +159,23 @@ const mutations = new GraphQLObjectType({
                 }
             },
             resolve(parent, args){
-                return Project.findByIdAndUpdate(
-                    args.id,
-                    {
-                        $set:{
-                            name: args.name,
-                            description: args.description,
-                            status: args.status
+                try {
+                    return Project.findByIdAndUpdate(
+                      args.id,
+                      {
+                        $set: {
+                          name: args.name,
+                          description: args.description,
+                          status: args.status
                         },
-                    },
-                    // the new here is to return thw modified document if new is false will return thw old document
-                    {new: true}
-                )
+                      },
+                      { new: true }
+                    );
+                  } catch (error) {
+                    // Handle error and return an appropriate response
+                    console.error('Error updating project:', error);
+                    throw new Error('Failed to update project');
+                  }
             }
         }
     }
