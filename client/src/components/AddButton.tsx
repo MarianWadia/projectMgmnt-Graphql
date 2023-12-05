@@ -4,11 +4,11 @@ import { FaUser } from "react-icons/fa"
 import { FaList } from "react-icons/fa";
 
 
-interface AddClientButtonProps {
+interface AddButtonProps {
     forClient: boolean;
   }
   
-const AddClientButton : React.FC<AddClientButtonProps> = ({ forClient }) => {
+const AddButton : React.FC<AddButtonProps> = ({ forClient }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const openModal = ()=> {
@@ -41,4 +41,4 @@ const AddClientButton : React.FC<AddClientButtonProps> = ({ forClient }) => {
   )
 }
 
-export default AddClientButton
+export default AddButton

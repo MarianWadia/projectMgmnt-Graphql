@@ -3,8 +3,8 @@ import { GET_PROJECT } from "../queries/ProjectQueries"
 import Spinner from "../components/Spinner"
 import { Link, useParams } from "react-router-dom"
 import ClientInformation from "../components/ClientInformation";
-import UpdateProject from "../components/Updateproject";
 import DeleteProjectBtn from "../components/DeleteProjectBtn";
+import UpdateProject from "../components/UpdateProject";
 
 
 
